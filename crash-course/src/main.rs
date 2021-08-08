@@ -1,4 +1,5 @@
 mod array;
+mod conditionals;
 mod print;
 mod string;
 mod tuple;
@@ -14,4 +15,5 @@ fn main() {
   tuple::run();
   array::run();
   vectors::run();
+  conditionals::run();
 }

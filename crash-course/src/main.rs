@@ -1,5 +1,6 @@
 mod array;
 mod conditionals;
+mod functions;
 mod loops;
 mod print;
 mod string;
@@ -18,4 +19,5 @@ fn main() {
   vectors::run();
   conditionals::run();
   loops::run();
+  functions::run();
 }

@@ -1,9 +1,10 @@
+mod array;
 mod print;
 mod string;
 mod tuple;
 mod types;
 mod vars;
-mod array;
+mod vectors;
 
 fn main() {
   print::run();
@@ -12,4 +13,5 @@ fn main() {
   string::run();
   tuple::run();
   array::run();
+  vectors::run();
 }

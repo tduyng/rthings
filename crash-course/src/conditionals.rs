@@ -1,7 +1,7 @@
 // Conditionals - Used to check the condition of something and act on the result
 
 pub fn run() {
-  let age: u18 = 22;
+  let age: u8 = 22;
   let check_id: bool = true;
   let knows_person_of_age: bool = true;
 

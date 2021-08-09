@@ -75,7 +75,7 @@ pub fn run() {
   let v3 = Vec2 { x: 14.0, ..v2 };
   let v4 = Vec2 { ..v3 };
 
-  println!("{:?}", v1);
+  // println!("{:?}", v1);
   // println!("v2: {:?}", v2);
   // println!("v3: {:?}", v3);
 
@@ -83,3 +83,37 @@ pub fn run() {
   let Vec2 { x, y } = v;
   // `x` is now 3.0, `y` is now `6.0`
 }
+
+// You can declare methods on your own types:
+struct Number {
+  odd: bool,
+  value: i32,
+}
+
+impl Number {
+  fn is_strictly_positive(self) -> bool {
+    self.value > 0
+  }
+}
+
+// Variable bindings are immutable by default, which means their interior can't be mutated:
+// fn main() {
+//   let n = Number {
+//       odd: true,
+//       value: 17,
+//   };
+//   n.odd = false; // error: cannot assign to `n.odd`,
+//                  // as `n` is not declared to be mutable
+// }
+
+// And also that they cannot be assigned to:
+// fn main() {
+//   let n = Number {
+//       odd: true,
+//       value: 17,
+//   };
+//   n = Number {
+//       odd: false,
+//       value: 22,
+//   }; // error: cannot assign twice to immutable variable `n`
+// }

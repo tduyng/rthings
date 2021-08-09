@@ -45,4 +45,8 @@ pub fn run() {
   assert_eq!(20, hello2.capacity());
 
   println!("{}, {}", hello, hello2);
+
+  // Types are namespaces too, and methods can be called as regular functions:
+  let x = "amos".len(); // this is 4
+  let x = str::len("amos"); // this is also 4
 }

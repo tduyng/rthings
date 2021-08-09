@@ -2,6 +2,12 @@
 
 use std::mem;
 
+// This works because Rust inserts this at the beginning of every module:
+
+// Rust code
+// use std::prelude::v1::*;
+// (Which in turns re-exports a lot of symbols, like Vec, String, Option and Result).
+
 pub fn run() {
   let mut numbers: Vec<i32> = vec![1, 2, 3];
 
@@ -41,4 +47,16 @@ pub fn run() {
   }
 
   println!("Numbers Vec: {:?}", numbers);
+
+  // `Vec` is a regular struct, not a primitive type
+  let mut v = Vec::new();
+  println!("Vec: {:?}", v);
+
+  // // this is exactly the same code, but with the *full* path to `Vec`
+  // let v = std::vec::Vec::new();
+  v.push(1);
+  v.push(10);
+  v.push(20);
+
+  println!("Vec: {:?}", v);
 }

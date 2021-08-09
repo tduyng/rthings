@@ -1,5 +1,5 @@
 // mod array;
-mod cli;
+// mod cli;
 // mod conditionals;
 // mod enums;
 // mod functions;
@@ -11,7 +11,7 @@ mod cli;
 // mod tuple;
 // mod types;
 // mod vars;
-// mod vectors;
+mod vectors;
 
 fn main() {
   // print::run();
@@ -20,12 +20,12 @@ fn main() {
   // string::run();
   // tuple::run();
   // array::run();
-  // vectors::run();
+  vectors::run();
   // conditionals::run();
   // loops::run();
   // functions::run();
   // pointer_ref::run();
   // structs::run();
   // enums::run();
-  cli::run();
+  // cli::run();
 }

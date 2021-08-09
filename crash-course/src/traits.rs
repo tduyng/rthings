@@ -5,7 +5,10 @@
 
 trait Signed {
   fn is_strictly_negative(self) -> bool;
-  // fn to_tuple(self) -> (bool, i32);
+  fn to_tuple(self) -> (bool, i32);
+}
+trait Signed2 {
+  fn is_strictly_negative(self) -> bool;
 }
 
 struct Number {
@@ -17,12 +20,12 @@ impl Signed for Number {
   fn is_strictly_negative(self) -> bool {
     self.value < 0
   }
-  // fn to_tuple(self) -> (bool, i32) {
-  //   (self.odd, self.value)
-  // }
+  fn to_tuple(self) -> (bool, i32) {
+    (self.odd, self.value)
+  }
 }
 
-impl Signed for i32 {
+impl Signed2 for i32 {
   fn is_strictly_negative(self) -> bool {
     self < 0
   }
@@ -42,13 +45,26 @@ impl std::ops::Neg for Number {
   }
 }
 
+// An impl block is always for a type, so, inside that block, Self means that type:
+// impl std::ops::Neg for Number {
+//   type Output = Self;
+
+//   fn neg(self) -> Self {
+//       Self {
+//           value: -self.value,
+//           odd: self.odd,
+//       }
+//   }
+// }
+
 pub fn run() {
   let n = Number {
     odd: false,
     value: -44,
   };
-  println!("{:?}", (n.odd, n.value));
-  println!("{}", n.is_strictly_negative()); // prints "true"
+  println!("{:?}", (&n.odd, &n.value));
+  println!("{}", &n.is_strictly_negative()); // prints "true"
+                                             // println!("{:?}", &n.to_tuple()); // prints "-44")
 
   let x: i32 = -44;
   println!("{}", x.is_strictly_negative()); // prints "true"

@@ -12,6 +12,11 @@ struct Color {
   blue: u8,
 }
 
+struct Vec2 {
+  x: f64, // 64-bit floating point, aka "double precision"
+  y: f64,
+}
+
 // Tuple struct
 struct ColorT(u8, u8, u8);
 
@@ -63,4 +68,18 @@ pub fn run() {
   p.set_last_name("Williams");
   println!("Person {}", p.full_name());
   println!("Person Tuple {:?}", p.to_tuple());
+
+  let v1 = Vec2 { x: 1.0, y: 3.0 };
+  let v2 = Vec2 { y: 2.0, x: 4.0 };
+  // the order does not matter, only the names do
+  let v3 = Vec2 { x: 14.0, ..v2 };
+  let v4 = Vec2 { ..v3 };
+
+  println!("{:?}", v1);
+  // println!("v2: {:?}", v2);
+  // println!("v3: {:?}", v3);
+
+  let v = Vec2 { x: 3.0, y: 6.0 };
+  let Vec2 { x, y } = v;
+  // `x` is now 3.0, `y` is now `6.0`
 }

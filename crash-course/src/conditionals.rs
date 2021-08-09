@@ -18,3 +18,18 @@ pub fn run() {
   let is_of_age = if age >= 18 { true } else { false };
   println!("Is of age: {}", is_of_age);
 }
+
+fn fair_dice_roll() -> i32 {
+  if feeling_lucky {
+    6
+  } else {
+    4
+  }
+}
+
+fn fair_dice_roll() -> i32 {
+  match feeling_lucky {
+    true => 6,
+    false => 4,
+  }
+}

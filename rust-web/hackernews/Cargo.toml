@@ -1,5 +1,5 @@
 [package]
-name = "hello-rocket"
+name = "hackernews"
 version = "0.1.0"
 edition = "2018"
 

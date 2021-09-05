@@ -23,6 +23,7 @@ fn main() {
     rect.height,
     get_area(&rect)
   );
+  println!("Rectangle is {:#?}", rect);
 }
 
 fn get_area(rect: &Rectangle) -> u32 {

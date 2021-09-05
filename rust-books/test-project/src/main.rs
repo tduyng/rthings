@@ -62,3 +62,46 @@ fn main() {
 // fn get_area(rect: &Rectangle) -> u32 {
 //   rect.width * rect.height
 // }
+
+#[derive(Debug)] // so we can inspect the state in a minute
+enum UsState {
+  Alabama,
+  Alaska,
+}
+
+enum Coin {
+  Penny,
+  Nickel,
+  Dime,
+  Quarter(UsState),
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+  match coin {
+    Coin::Penny => 1,
+    Coin::Nickel => 5,
+    Coin::Dime => 10,
+    Coin::Quarter(state) => {
+      println!("State quarter from {:?}!", state);
+      25
+    }
+  }
+}
+
+// the _ placeholder
+// Rust also has a pattern we can use when we don’t want to list all possible values.
+// For example, a u8 can have valid values of 0 through 255.
+// If we only care about the values 1, 3, 5, and 7,
+// we don’t want to have to list out 0, 2, 4, 6, 8, 9 all the way up to 255.
+// Fortunately, we don’t have to: we can use the special pattern _ instead:
+
+// fn main() {
+//   let some_u8_value = 0u8;
+//   match some_u8_value {
+//     1 => println!("one"),
+//     3 => println!("three"),
+//     5 => println!("five"),
+//     7 => println!("seven"),
+//     _ => (),
+//   }
+// }

@@ -202,3 +202,6 @@ fn main() -> Result<(), std::str::Utf8Error> {
     Ok(())
 }
 ```
+## References
+
+- See more references: [slice type](https://doc.rust-lang.org/book/ch04-03-slices.html)

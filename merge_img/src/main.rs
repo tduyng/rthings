@@ -35,6 +35,7 @@ fn main() -> Result<(), ImageDataErrors> {
     Ok(())
 }
 
+#[derive(Debug)]
 enum ImageDataErrors {
     BufferTooSmall,
     DifferentImageFormats,

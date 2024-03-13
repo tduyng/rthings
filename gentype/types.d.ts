@@ -17,7 +17,7 @@ export interface Person {
 }
 
 export interface ComplexType {
-	colour_map: HashMap
-	list_of_names: Vec
-	optional_person: Option
+	colour_map: HashMap<string,Colour,>,
+	list_of_names: Vec<string,>,
+	optional_person: Option<Person,>,
 }

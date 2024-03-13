@@ -98,7 +98,26 @@ fn parse_type(syn_type: &syn::Type) -> String {
             output_text.push_str(&ts_field_type);
 
             match &segment.arguments {
+                // A simple type like i32 matches here as it
+                // does not include any arguments
                 syn::PathArguments::None => {}
+                // Example: HashMap<String, Colour>
+                syn::PathArguments::AngleBracketed(angle_bracket_args) => {
+                    output_text.push_str("<");
+                    let args = angle_bracket_args.args.iter();
+                    for arg in args {
+                        match arg {
+                            syn::GenericArgument::Type(inner_type) => {
+                                output_text.push_str(&parse_type(inner_type));
+                                output_text.push_str(",");
+                            }
+                            _ => {
+                                dbg!("Encountered an unimplemented token");
+                            }
+                        }
+                    }
+                    output_text.push_str(">,");
+                }
                 _ => {
                     dbg!("Encountered an unimplemented token");
                 }
@@ -194,7 +213,9 @@ fn parse_item_struct(item_struct: &syn::ItemStruct) -> String {
                         output_text.push_str(&field_name);
                         output_text.push_str(": ");
                     }
-                    None => todo!(),
+                    None => {
+                        dbg!("Encountered an unimplemented token");
+                    }
                 }
                 let field_type = parse_type(&named_field.ty);
                 output_text.push_str(&field_type);

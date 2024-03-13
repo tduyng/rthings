@@ -54,6 +54,10 @@ fn main() {
                 let type_text = parse_item_type(item_type);
                 output_text.push_str(&type_text);
             }
+            syn::Item::Enum(item_enum) => {
+                let enum_text = parse_item_enum(item_enum);
+                output_text.push_str(&enum_text);
+            }
             _ => {
                 dbg!("Encountered an unimplemented type");
             }
@@ -112,4 +116,50 @@ fn parse_type_ident(ident: &str) -> &str {
         "bool" => "boolean",
         _ => ident,
     }
+}
+
+fn parse_item_enum(item_enum: &syn::ItemEnum) -> String {
+    let mut output_text = String::new();
+
+    output_text.push_str("\n\nexport type ");
+    let enum_name = item_enum.ident.to_string();
+    output_text.push_str(&enum_name);
+    output_text.push_str(" = ");
+
+    for variant in item_enum.variants.iter() {
+        output_text.push_str("\n | { t: \"");
+        let variant_name = variant.ident.to_string();
+        output_text.push_str(&variant_name);
+        output_text.push_str("\" , c: ");
+
+        match &variant.fields {
+            syn::Fields::Named(named_fields) => {
+                output_text.push('{');
+                for field in named_fields.named.iter() {
+                    if let Some(ident) = &field.ident {
+                        output_text.push_str(&ident.to_string());
+                        output_text.push(':');
+
+                        let field_type = parse_type(&field.ty);
+                        output_text.push_str(&field_type);
+                        output_text.push(';');
+                    }
+                }
+                output_text.push('}');
+            }
+            syn::Fields::Unnamed(unnamed_fields) => {
+                // Currently only support a single unnamed field: e.g the i32 in Blue(i32)
+                let unnamed_field = unnamed_fields.unnamed.first().unwrap();
+                let field_type = parse_type(&unnamed_field.ty);
+                output_text.push_str(&field_type);
+            }
+            syn::Fields::Unit => {
+                output_text.push_str("undefined");
+            }
+        }
+        output_text.push('}');
+    }
+    output_text.push(';');
+
+    output_text
 }

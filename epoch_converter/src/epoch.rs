@@ -123,3 +123,18 @@ fn length_of_month(month: u64, year: u64) -> u64 {
         _ => panic!("Invalid month value {}", month),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn epoch_to_date_test() {
+        assert_eq!(DateTime::new(2001, 9, 9, 1, 46, 40).unwrap(), DateTime::from_epoch(1000000000));
+    }
+
+    #[test]
+    fn date_to_epoch_test() {
+        assert_eq!(1000000000, DateTime::new(2001, 9, 9, 1, 46, 40).unwrap().to_epoch(),);
+    }
+}

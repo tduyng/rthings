@@ -47,6 +47,7 @@ fn main() {
 
     let input_syntax: syn::File = syn::parse_file(&input_file_text).expect("Unable to parse file");
     let mut output_text = String::new();
+    output_text.push_str(&create_initial_types());
 
     for item in input_syntax.items.iter() {
         match item {
@@ -57,6 +58,10 @@ fn main() {
             syn::Item::Enum(item_enum) => {
                 let enum_text = parse_item_enum(item_enum);
                 output_text.push_str(&enum_text);
+            }
+            syn::Item::Struct(item_struct) => {
+                let struct_text = parse_item_struct(item_struct);
+                output_text.push_str(&struct_text);
             }
             _ => {
                 dbg!("Encountered an unimplemented type");
@@ -78,7 +83,6 @@ fn parse_item_type(item_type: &syn::ItemType) -> String {
 
     let type_string = parse_type(&item_type.ty);
     output_text.push_str(&type_string);
-    output_text.push(';');
 
     output_text
 }
@@ -100,6 +104,16 @@ fn parse_type(syn_type: &syn::Type) -> String {
                 }
             }
         }
+
+        syn::Type::Tuple(type_tuple) => {
+            output_text.push('[');
+            for elem in type_tuple.elems.iter() {
+                output_text.push_str(&parse_type(elem));
+                output_text.push(',');
+            }
+            output_text.push(']');
+        }
+
         _ => {
             dbg!("Encountered an unimplemented token");
         }
@@ -127,10 +141,10 @@ fn parse_item_enum(item_enum: &syn::ItemEnum) -> String {
     output_text.push_str(" = ");
 
     for variant in item_enum.variants.iter() {
-        output_text.push_str("\n | { t: \"");
+        output_text.push_str("\n\t | { t: \"");
         let variant_name = variant.ident.to_string();
         output_text.push_str(&variant_name);
-        output_text.push_str("\" , c: ");
+        output_text.push_str("\", c: ");
 
         match &variant.fields {
             syn::Fields::Named(named_fields) => {
@@ -142,7 +156,6 @@ fn parse_item_enum(item_enum: &syn::ItemEnum) -> String {
 
                         let field_type = parse_type(&field.ty);
                         output_text.push_str(&field_type);
-                        output_text.push(';');
                     }
                 }
                 output_text.push('}');
@@ -159,7 +172,154 @@ fn parse_item_enum(item_enum: &syn::ItemEnum) -> String {
         }
         output_text.push('}');
     }
-    output_text.push(';');
 
     output_text
+}
+
+fn parse_item_struct(item_struct: &syn::ItemStruct) -> String {
+    let mut output_text = String::new();
+
+    let struct_name = item_struct.ident.to_string();
+    output_text.push_str("\n\nexport interface ");
+    output_text.push_str(&struct_name);
+    output_text.push_str(" {\n");
+
+    match &item_struct.fields {
+        syn::Fields::Named(named_fields) => {
+            for named_field in named_fields.named.iter() {
+                match &named_field.ident {
+                    Some(ident) => {
+                        let field_name = ident.to_string();
+                        output_text.push('\t');
+                        output_text.push_str(&field_name);
+                        output_text.push_str(": ");
+                    }
+                    None => todo!(),
+                }
+                let field_type = parse_type(&named_field.ty);
+                output_text.push_str(&field_type);
+                output_text.push('\n');
+            }
+        }
+        // For tuple structs we will serialize them as interfaces with
+        // fields named for the numerical index to align with serde's
+        // default handling of this type
+        syn::Fields::Unnamed(fields) => {
+            // Example: struct Something (i32, Anything);
+            // Output: export interface Something { 0: i32, 1: Anything }
+            for (index, field) in fields.unnamed.iter().enumerate() {
+                output_text.push('\t');
+                output_text.push_str(&index.to_string());
+                output_text.push_str(": ");
+                output_text.push_str(&parse_type(&field.ty));
+                output_text.push(';');
+            }
+        }
+        syn::Fields::Unit => (),
+    }
+    output_text.push('}');
+
+    output_text
+}
+
+fn create_initial_types() -> String {
+    let mut output_text = String::new();
+
+    output_text.push_str("type HashSet<T extends number | string> = Record<T, undefined>;\n");
+    output_text.push_str("type HashMap<T extends number | string, U> = Record<T, U>;\n");
+    output_text.push_str("type Vec<T> = Array<T>;\n");
+    output_text.push_str("type Option<T> = T | undefined;\n");
+    output_text.push_str("type Result<T, U> = T | U;\n");
+
+    output_text
+}
+
+
+
+#[cfg(test)]
+mod tests {
+
+    use super::*;
+
+    fn parse_syn_file(file: syn::File) -> String {
+        let mut output_text = String::new();
+    
+        for item in file.items.iter() {
+            match item {
+                // This `Item::Type` enum variant matches our type alias
+                syn::Item::Type(item_type) => {
+                    let type_text = parse_item_type(item_type);
+                    output_text.push_str(&type_text);
+                }
+                syn::Item::Enum(item_enum) => {
+                    let enum_text = parse_item_enum(item_enum);
+                    output_text.push_str(&enum_text);
+                }
+                syn::Item::Struct(item_struct) => {
+                    let struct_text = parse_item_struct(item_struct);
+                    output_text.push_str(&struct_text);
+                }
+    
+                _ => {
+                    dbg!("Encountered an unimplemented token");
+                }
+            }
+        }
+    
+        output_text
+    }
+
+    #[test]
+    fn handles_type_alias() {
+        let mut input_file = File::open("./src/tests/type.rs").unwrap();
+
+        let mut input_file_text = String::new();
+
+        input_file.read_to_string(&mut input_file_text).unwrap();
+
+        let input_syntax: syn::File =
+            syn::parse_file(&input_file_text).expect("Unable to parse file");
+
+        let typescript_types = parse_syn_file(input_syntax);
+
+        assert_eq!("export type NumberAlias = number", &typescript_types);
+    }
+
+    #[test]
+    fn handles_struct() {
+        let mut input_file = File::open("./src/tests/struct.rs").unwrap();
+
+        let mut input_file_text = String::new();
+
+        input_file.read_to_string(&mut input_file_text).unwrap();
+
+        let input_syntax: syn::File =
+            syn::parse_file(&input_file_text).expect("Unable to parse file");
+
+        let typescript_types = parse_syn_file(input_syntax);
+
+        assert_eq!(
+            "\n\nexport interface Person {\n\tname: string\n\tage: number\n\tenjoys_coffee: boolean\n}",
+            &typescript_types
+        );
+    }
+
+    #[test]
+    fn handles_enum() {
+        let mut input_file = File::open("./src/tests/enum.rs").unwrap();
+
+        let mut input_file_text = String::new();
+
+        input_file.read_to_string(&mut input_file_text).unwrap();
+
+        let input_syntax: syn::File =
+            syn::parse_file(&input_file_text).expect("Unable to parse file");
+
+        let typescript_types = parse_syn_file(input_syntax);
+
+        assert_eq!(
+            "\n\nexport type Colour = \n\t | { t: \"Red\", c: number}\n\t | { t: \"Green\", c: number}\n\t | { t: \"Blue\", c: number}",
+            &typescript_types
+        );
+    }
 }

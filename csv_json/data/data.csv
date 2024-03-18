@@ -1,0 +1,31 @@
+Tool Name,Creation Date,Author,Latest Version
+Node.js,2009-05-27,Ryan Dahl,v14.18.2
+React,2013-05-29,Facebook,v17.0.2
+AngularJS,2010-10-20,Google,v1.8.2
+Vue.js,2014-02-01,Evan You,v3.2.31
+Express.js,2010-11-16,TJ Holowaychuk,v4.17.1
+Webpack,2012-03-10,Tobias Koppers,v5.64.4
+jQuery,2006-08-26,John Resig,v3.6.0
+Bootstrap,2011-08-19,Mark Otto and Jacob Thornton,v5.3.0
+Lodash,2012-04-23,John-David Dalton,v4.17.21
+D3.js,2011-04-04,Michael Bostock,v7.0.0
+TypeScript,2012-10-01,Microsoft,v4.5.4
+Next.js,2016-10-25,Vercel,v12.1.0
+Svelte,2016-11-22,Rich Harris,v3.44.2
+Electron,2013-05-15,GitHub,v17.0.0
+Gatsby,2015-07-06,Kyle Mathews,v4.7.1
+Redux,2015-06-02,Dan Abramov and Andrew Clark,v4.1.1
+Babel,2014-09-08,Babel Team,v7.17.0
+Jest,2013-11-25,Facebook,v27.1.0
+Cypress,2015-09-20,Brian Mann,8.7.0
+Material-UI,2014-08-10,Call-Em-All,v5.2.3
+Storybook,2016-04-01,Chromatic,v6.4.7
+Tailwind CSS,2017-11-01,Adam Wathan,3.0.10
+Three.js,2010-05-15,Mr.doob,v0.135.1
+Emotion,2017-02-12,emotion,v14.0.0
+RxJS,2015-05-05,ReactiveX,v7.4.0
+Ramda,2013-10-23,Ramda Contributors,v0.27.2
+Axios,2014-09-18,Matt Zabriskie,v0.25.0
+Mocha,2011-10-13,TJ Holowaychuk and others,v9.1.0
+Sass,2006-11-28,Sass Team,v1.49.5
+Styled Components,2016-04-01,Glen Maddern and Max Stoiber,v5.3.1

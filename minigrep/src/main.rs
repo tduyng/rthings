@@ -2,7 +2,7 @@ use std::error::Error;
 use std::process;
 use std::{env, fs};
 
-fn main() -> Result<(), Box<dyn Error>> {
+fn main() {
     let args: Vec<String> = env::args().collect();
 
     let config = Config::build(&args).unwrap_or_else(|err| {
@@ -13,9 +13,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     println!("Searching for {}", config.query);
     println!("In file {}", config.file_path);
 
-    let _ = run(config);
-
-    Ok(())
+    if let Err(e)  = run(config) {
+        println!("Application error: {e}");
+        process::exit(1);
+    }
 }
 
 struct Config {

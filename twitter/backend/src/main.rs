@@ -1,3 +1,14 @@
+use std::{self, Write};
+
+fn utf8_to_bytes_string(buffer: [u8; 4]) -> String {
+    buffer.iter().filter(|&x| *x !=0).map(|v| format!("%{:x}",v)).collect::<Vec<String>>().join("");
+}
+
+fn encode (character: char) -> String {
+    let mut buffer: [u8; 4] = [0; 4];
+    let str_character = character.encode_u
+}
+
 fn main() {
     println!("Hello, world!");
 }

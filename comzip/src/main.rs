@@ -25,8 +25,8 @@ fn compress_folder<P: AsRef<Path>>(
 ) -> Result<(), Box<dyn std::error::Error>> {
     let folder_path = folder_path.as_ref();
     let options = FileOptions::default()
-                .compression_method(CompressionMethod::Stored)
-                .unix_permissions(0o755);
+        .compression_method(CompressionMethod::Stored)
+        .unix_permissions(0o755);
 
     for entry in fs::read_dir(folder_path)? {
         let entry = entry?;

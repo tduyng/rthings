@@ -15,10 +15,11 @@ fn parse_tab_file(path: &str, output_path: &str) -> Result<(), std::io::Error> {
     let reader = BufReader::new(file);
     let mut entries: Vec<Entry> = Vec::new();
     let mut line_count = 0;
-    let mut code_index: Option<usize> = None; 
+    let mut code_index: Option<usize> = None;
     let mut name_index: Option<usize> = None;
 
-    for line_result in reader.lines() { // Added ? for error handling
+    for line_result in reader.lines() {
+        // Added ? for error handling
         line_count += 1;
         let line = line_result?;
 
@@ -40,13 +41,13 @@ fn parse_tab_file(path: &str, output_path: &str) -> Result<(), std::io::Error> {
         let code = if let Some(index) = code_index {
             parts.get(index).unwrap_or(&"".to_string()).to_string()
         } else {
-            "".to_string() 
+            "".to_string()
         };
 
         let name = if let Some(index) = name_index {
             parts.get(index).unwrap_or(&"".to_string()).to_string()
         } else {
-            "".to_string() 
+            "".to_string()
         };
 
         if !code.is_empty() && !name.is_empty() {

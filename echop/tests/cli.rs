@@ -1,7 +1,7 @@
 use assert_cmd::Command;
+use predicates::*;
 use std::error::Error;
 use std::fs;
-use predicates::*;
 
 #[test]
 fn dies_no_args() -> Result<(), Box<dyn Error>> {

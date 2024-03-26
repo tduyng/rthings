@@ -1,7 +1,7 @@
 use assert_cmd::Command;
 
 #[test]
-fn runs(){
+fn runs() {
     let mut cmd = Command::cargo_bin("hello").unwrap();
     let output = cmd.output().expect("Failed to output cmd");
 
@@ -12,14 +12,13 @@ fn runs(){
 }
 
 #[test]
-fn true_ok(){
+fn true_ok() {
     let mut cmd = Command::cargo_bin("true").unwrap();
     cmd.assert().success();
 }
 
-
 #[test]
-fn false_not_ok(){
+fn false_not_ok() {
     let mut cmd = Command::cargo_bin("false").unwrap();
     cmd.assert().failure();
 }

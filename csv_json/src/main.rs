@@ -1,12 +1,11 @@
 use csv::ReaderBuilder;
+use inflector::Inflector;
 use serde_json::{json, Value};
 use std::error::Error;
 use std::fs::File;
 use std::io::Write;
-use inflector::Inflector;
 
 fn main() -> Result<(), Box<dyn Error>> {
-
     let file = File::open("data/data.csv")?;
     let mut rdr = ReaderBuilder::new().has_headers(true).from_reader(file);
 

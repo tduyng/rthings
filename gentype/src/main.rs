@@ -255,8 +255,6 @@ fn create_initial_types() -> String {
     output_text
 }
 
-
-
 #[cfg(test)]
 mod tests {
 
@@ -264,7 +262,7 @@ mod tests {
 
     fn parse_syn_file(file: syn::File) -> String {
         let mut output_text = String::new();
-    
+
         for item in file.items.iter() {
             match item {
                 // This `Item::Type` enum variant matches our type alias
@@ -280,13 +278,13 @@ mod tests {
                     let struct_text = parse_item_struct(item_struct);
                     output_text.push_str(&struct_text);
                 }
-    
+
                 _ => {
                     dbg!("Encountered an unimplemented token");
                 }
             }
         }
-    
+
         output_text
     }
 

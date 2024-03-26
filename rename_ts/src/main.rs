@@ -2,14 +2,16 @@ use clap::Parser;
 use std::fs;
 use std::path::Path;
 
-#[derive(Parser)]
-#[command(name = "MyApp")]
-#[command(version = "1.0")]
-#[command(about = "Move and rename Typescript files", long_about = None)]
+#[derive(Debug, Parser)]
+#[command(author, version, about)]
+/// Move and rename Typescript files"
 struct Cli {
-    #[arg(long)]
+    /// Input folder
+    #[arg(short('f'))]
     folder: String,
-    #[arg(long)]
+
+    /// Extension files
+    #[arg(short('e'))]
     ext: String,
 }
 

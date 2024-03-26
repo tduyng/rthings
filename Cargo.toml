@@ -7,7 +7,6 @@ members = [
     "comzip",
     "csv_json",
     "decom",
-    "del_branches",
     "echop",
     "encode",
     "gentype",

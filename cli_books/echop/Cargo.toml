@@ -9,6 +9,5 @@ edition = "2021"
 clap = { version = "4.5.3", features = ["derive"] }
 
 [dev-dependencies]
-anyhow = "1.0.81"
 assert_cmd = "2.0.14"
 predicates = "3.1.0"

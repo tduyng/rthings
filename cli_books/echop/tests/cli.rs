@@ -1,10 +1,10 @@
 use assert_cmd::Command;
+use std::error::Error;
 use std::fs;
-use anyhow::Result;
 use predicates::*;
 
 #[test]
-fn dies_no_args() -> Result<()> {
+fn dies_no_args() -> Result<(), Box<dyn Error>> {
     Command::cargo_bin("echop")?
         .assert()
         .failure()
@@ -13,7 +13,7 @@ fn dies_no_args() -> Result<()> {
     Ok(())
 }
 
-fn run(args: &[&str], expected_file: &str) -> Result<()> {
+fn run(args: &[&str], expected_file: &str) -> Result<(), Box<dyn Error>> {
     let expected = fs::read_to_string(expected_file)?;
     let output = Command::cargo_bin("echop")?
         .args(args)
@@ -27,21 +27,21 @@ fn run(args: &[&str], expected_file: &str) -> Result<()> {
 }
 
 #[test]
-fn hello1() -> Result<()> {
+fn hello1() -> Result<(), Box<dyn Error>> {
     run(&["Hello there"], "tests/expected/hello1.txt")
 }
 
 #[test]
-fn hello2() -> Result<()> {
+fn hello2() -> Result<(), Box<dyn Error>> {
     run(&["Hello", "there"], "tests/expected/hello2.txt")
 }
 
 #[test]
-fn hello1_no_newline() -> Result<()> {
+fn hello1_no_newline() -> Result<(), Box<dyn Error>> {
     run(&["Hello there", "-n"], "tests/expected/hello1.n.txt")
 }
 
 #[test]
-fn hello2_no_newline() -> Result<()> {
+fn hello2_no_newline() -> Result<(), Box<dyn Error>> {
     run(&["-n", "Hello", "there"], "tests/expected/hello2.n.txt")
 }

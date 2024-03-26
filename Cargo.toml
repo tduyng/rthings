@@ -1,0 +1,20 @@
+[workspace]
+
+resolver = "1"
+members = [
+    "calc",
+    "catp",
+    "comzip",
+    "csv_json",
+    "decom",
+    "del_branches",
+    "echop",
+    "encode",
+    "gentype",
+    "hello",
+    "merge_img",
+    "minigrep",
+    "newsletter",
+    "parse_tab",
+    "rename_ts"
+]

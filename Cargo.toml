@@ -15,5 +15,6 @@ members = [
     "minigrep",
     "newsletter",
     "parse_tab",
+    "remove_uid",
     "rename_ts"
 ]

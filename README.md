@@ -1,4 +1,4 @@
-# 58 Rust Resources Every Learner Should Know in 2023
+# Rust Resources Every Learner Should Know
 
 ## Reading Material 📚
 **Quick Summaries**
@@ -148,3 +148,19 @@ To stay informed with everything Rust, these are some newsletters that would be 
 57. [Rust Weekly](https://discu.eu/weekly/rust/?ref=inboxreads)
 
 58. [Rust in Blockchain](https://rustinblockchain.org/?ref=inboxreads)
+
+## Other resources
+- [Error handling in Rust](https://nrc.github.io/error-docs/rust-errors/panic.html)
+- [PNGme: An Intermediate Rust Project](https://jrdngr.github.io/pngme_book/setup.html)
+    - [Code example](https://github.com/Ch1n3du/pngme)
+- [Mini-LSM](https://skyzh.github.io/mini-lsm/00-overview.html)
+    - [Code example](https://github.com/skyzh/mini-lsm)
+    - [Picod-redis](https://github.com/ch1n3du/pico-redis)
+- [Blog os](https://os.phil-opp.com/)
+    - [Code example](https://github.com/ch1n3du/blog_os)
+- [Small projects with elegant code base](https://practice.course.rs/elegant-code-base.html)
+- [Rust quiz](https://dtolnay.github.io/rust-quiz/14)
+- [Rust project idea](https://rust-trends.com/newsletter/rust-in-action-10-project-ideas-to-elevate-your-skills/)
+- [Rust algorithms](https://github.com/TheAlgorithms/Rust/blob/master/DIRECTORY.md)
+- [Writing interpreters in Rust](https://rust-hosted-langs.github.io/book/)
+- [Rust cookbook](https://rust-lang-nursery.github.io/rust-cookbook/intro.html)

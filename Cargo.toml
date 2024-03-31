@@ -9,7 +9,7 @@ members = [
     "decom",
     "echop",
     "encode",
-    "gentype",
+    "gentype", "headp",
     "hello",
     "merge_img",
     "minigrep",

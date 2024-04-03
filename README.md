@@ -81,7 +81,7 @@
 
 34. 👶 [300 seconds of Rust](https://www.youtube.com/@300secondsofrust) provides really nice shorts of different Rust concepts. It is great if you want a quick refresher or insight into a particular concept.
 
-35. 👶 The dev method offers a list of Rust videos explaining particular concepts. I've found explanations to be quite clear and enjoyable to follow.
+35. 👶 [The dev method](https://www.youtube.com/@TheDevMethod/playlists) offers a list of Rust videos explaining particular concepts. I've found explanations to be quite clear and enjoyable to follow.
 
 ## Git Resources 💾
 
@@ -164,3 +164,4 @@ To stay informed with everything Rust, these are some newsletters that would be 
 - [Rust algorithms](https://github.com/TheAlgorithms/Rust/blob/master/DIRECTORY.md)
 - [Writing interpreters in Rust](https://rust-hosted-langs.github.io/book/)
 - [Rust cookbook](https://rust-lang-nursery.github.io/rust-cookbook/intro.html)
+- [Writing an OS In Rust](https://os.phil-opp.com/)

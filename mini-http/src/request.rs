@@ -1,5 +1,4 @@
 use bytes::BytesMut;
-use httparse;
 use std::{fmt, io, slice, str};
 
 pub struct Request {

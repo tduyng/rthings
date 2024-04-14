@@ -11,7 +11,7 @@ members = [
     "encode",
     "gentype", "headp",
     "hello",
-    "merge_img",
+    "merge_img", "mini-http",
     "minigrep",
     "newsletter",
     "parse_tab",

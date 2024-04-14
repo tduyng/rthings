@@ -1,5 +1,6 @@
-use tokio::io::AsyncWriteExt;
-use tokio::net::TcpListener;
+use bytes::BytesMut;
+use mini_http::response::Response;
+use tokio::{io::AsyncWriteExt, net::TcpListener};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -11,13 +12,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let (mut socket, _) = listener.accept().await?;
 
         tokio::spawn(async move {
-            println!("Accepted new connection");
+            let response = Response::new()
+                .status_code(200, "OK")
+                .header("Content-Type", "text/plain")
+                .body_str("Hello, World!");
 
-            let response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 13\r\n\r\nHello, World!";
-            println!("Sending response: {}", response);
+            let mut buf = BytesMut::new();
+            response.encode(&mut buf).unwrap();
 
-            if let Err(e) = socket.write_all(response.as_bytes()).await {
-                eprintln!("Failed to send response: {}", e);
+            if let Err(e) = socket.write_all(&buf).await {
+                eprintln!("Failed to write to socket: {}", e);
             }
         });
     }

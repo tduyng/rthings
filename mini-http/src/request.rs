@@ -1,101 +1,75 @@
 use bytes::BytesMut;
-use std::{fmt, io, slice, str};
+use std::{fmt, io, str};
 
 pub struct Request {
-    method: Slice,
-    path: Slice,
+    method: String,
+    path: String,
     version: u8,
-    headers: Vec<(Slice, Slice)>,
-    data: BytesMut,
-}
-
-type Slice = (usize, usize);
-
-pub struct RequestHeaders<'req> {
-    headers: slice::Iter<'req, (Slice, Slice)>,
-    req: &'req Request,
+    headers: Vec<(String, Vec<u8>)>,
 }
 
 impl Request {
+    pub fn new() -> Self {
+        Request {
+            method: String::new(),
+            path: String::new(),
+            version: 0,
+            headers: Vec::new(),
+        }
+    }
+
     pub fn method(&self) -> &str {
-        str::from_utf8(self.slice(&self.method)).unwrap()
+        &self.method
     }
 
     pub fn path(&self) -> &str {
-        str::from_utf8(self.slice(&self.path)).unwrap()
+        &self.path
     }
 
     pub fn version(&self) -> u8 {
         self.version
     }
 
-    pub fn headers(&self) -> RequestHeaders {
-        RequestHeaders {
-            headers: self.headers.iter(),
-            req: self,
-        }
+    pub fn headers(&self) -> &[(String, Vec<u8>)] {
+        &self.headers
     }
 
-    fn slice(&self, slice: &Slice) -> &[u8] {
-        &self.data[slice.0..slice.1]
+    pub fn decode(mut buf: BytesMut) -> io::Result<Option<Self>> {
+        let mut headers = [httparse::EMPTY_HEADER; 16];
+        let mut r = httparse::Request::new(&mut headers);
+        let status = r.parse(&buf).map_err(|e| {
+            let msg = format!("failed to parse http request: {:?}", e);
+            io::Error::new(io::ErrorKind::Other, msg)
+        })?;
+
+        match status {
+            httparse::Status::Complete(amt) => {
+                let method = r.method.unwrap().to_string();
+                let path = r.path.unwrap().to_string();
+                let version = r.version.unwrap();
+
+                let parsed_headers: Vec<(String, Vec<u8>)> = r
+                    .headers
+                    .iter()
+                    .map(|h| (h.name.to_string(), h.value.to_vec()))
+                    .collect();
+
+                let _ = buf.split_to(amt);
+
+                Ok(Some(Request {
+                    method,
+                    path,
+                    version,
+                    headers: parsed_headers,
+                }))
+            }
+            httparse::Status::Partial => Ok(None),
+        }
     }
 }
 
 impl fmt::Debug for Request {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "<HTTP Request {} {}", self.method(), self.path())
+        write!(f, "<HTTP Request {} {}", self.method, self.path)
     }
-}
-
-impl<'req> Iterator for RequestHeaders<'req> {
-    type Item = (&'req str, &'req [u8]);
-
-    fn next(&mut self) -> Option<(&'req str, &'req [u8])> {
-        self.headers.next().map(|(a, b)| {
-            let a = self.req.slice(a);
-            let b = self.req.slice(b);
-            (str::from_utf8(a).unwrap(), b)
-        })
-    }
-}
-
-pub fn decode(buf: &mut BytesMut) -> io::Result<Option<Request>> {
-    let (method, path, version, headers, amt) = {
-        let mut headers = [httparse::EMPTY_HEADER; 16];
-        let mut r = httparse::Request::new(&mut headers);
-        let status = r.parse(buf).map_err(|e| {
-            let msg = format!("failed to parse http request: {:?}", e);
-            io::Error::new(io::ErrorKind::Other, msg)
-        })?;
-
-        let amt = match status {
-            httparse::Status::Complete(amt) => amt,
-            httparse::Status::Partial => return Ok(None),
-        };
-
-        let to_slice = |a: &[u8]| {
-            let start = a.as_ptr() as usize - buf.as_ptr() as usize;
-            assert!(start < buf.len());
-            (start, start + a.len())
-        };
-
-        (
-            to_slice(r.method.unwrap().as_bytes()),
-            to_slice(r.path.unwrap().as_bytes()),
-            r.version.unwrap(),
-            r.headers
-                .iter()
-                .map(|h| (to_slice(h.name.as_bytes()), to_slice(h.value)))
-                .collect(),
-            amt,
-        )
-    };
-
-    Ok(Some(Request {
-        method,
-        path,
-        version,
-        headers,
-        data: buf.split_to(amt),
-    }))
 }

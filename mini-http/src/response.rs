@@ -1,17 +1,12 @@
-use bytes::{BufMut, BytesMut};
+use crate::Result;
+use bytes::BytesMut;
 use std::fmt::{self, Write};
 
-use crate::date;
-
 pub struct Response {
+    status_code: u32,
+    status_message: String,
     headers: Vec<(String, String)>,
-    response: Vec<u8>,
-    status_message: StatusMessage,
-}
-
-enum StatusMessage {
-    Ok,
-    Custom(u32, String),
+    body: Vec<u8>,
 }
 
 impl Default for Response {
@@ -21,73 +16,53 @@ impl Default for Response {
 }
 
 impl Response {
-    pub fn new() -> Response {
+    pub fn new() -> Self {
         Response {
+            status_code: 200,
+            status_message: "OK".to_string(),
             headers: Vec::new(),
-            response: Vec::new(),
-            status_message: StatusMessage::Ok,
+            body: Vec::new(),
         }
     }
 
-    pub fn status_code(&mut self, code: u32, message: &str) -> &mut Response {
-        self.status_message = StatusMessage::Custom(code, message.to_string());
+    pub fn status_code(mut self, code: u32, message: &str) -> Self {
+        self.status_code = code;
+        self.status_message = message.to_string();
         self
     }
 
-    pub fn header(&mut self, name: &str, val: &str) -> &mut Response {
+    pub fn header(mut self, name: &str, val: &str) -> Self {
         self.headers.push((name.to_string(), val.to_string()));
         self
     }
 
-    pub fn body(&mut self, s: &str) -> &mut Response {
-        self.response = s.as_bytes().to_vec();
+    pub fn body(mut self, body: &[u8]) -> Self {
+        self.body = body.to_vec();
         self
     }
 
-    pub fn body_bytes(&mut self, b: &[u8]) -> &mut Response {
-        self.response = b.to_vec();
+    pub fn body_str(mut self, body: &str) -> Self {
+        self.body = body.as_bytes().to_vec();
         self
     }
-}
 
-pub fn encode(msg: Response, buf: &mut BytesMut) {
-    let length = msg.response.len();
-    let now = date::now();
+    pub fn encode(&self, buf: &mut BytesMut) -> Result<()> {
+        write!(
+            FastWrite(buf),
+            "HTTP/1.1 {} {}\r\n",
+            self.status_code,
+            self.status_message
+        )?;
 
-    write!(
-        FastWrite(buf),
-        "\
-        HTTP/1.1 {}\r\n\
-        Server: Example\r\n\
-        Content-Length: {}\r\n\
-        Date: {}\r\n\
-    ",
-        msg.status_message,
-        length,
-        now
-    )
-    .unwrap();
+        for (name, value) in &self.headers {
+            write!(FastWrite(buf), "{}: {}\r\n", name, value)?;
+        }
 
-    for (k, v) in &msg.headers {
-        push(buf, k.as_bytes());
-        push(buf, ": ".as_bytes());
-        push(buf, v.as_bytes());
-        push(buf, "\r\n".as_bytes());
-    }
+        write!(FastWrite(buf), "Content-Length: {}\r\n", self.body.len())?;
+        write!(FastWrite(buf), "\r\n")?;
 
-    push(buf, "\r\n".as_bytes());
-    push(buf, msg.response.as_slice());
-}
-
-fn push(buf: &mut BytesMut, data: &[u8]) {
-    if buf.remaining_mut() < data.len() {
-        buf.reserve(data.len());
-    }
-
-    unsafe {
-        let buf_ptr = buf.as_mut_ptr().add(buf.len());
-        std::ptr::copy_nonoverlapping(data.as_ptr(), buf_ptr, data.len());
-        buf.advance_mut(data.len());
+        buf.extend_from_slice(&self.body);
+        Ok(())
     }
 }
 
@@ -95,20 +70,7 @@ struct FastWrite<'a>(&'a mut BytesMut);
 
 impl<'a> fmt::Write for FastWrite<'a> {
     fn write_str(&mut self, s: &str) -> fmt::Result {
-        push(&mut *self.0, s.as_bytes());
+        self.0.extend_from_slice(s.as_bytes());
         Ok(())
-    }
-
-    fn write_fmt(&mut self, args: fmt::Arguments<'_>) -> fmt::Result {
-        fmt::write(self, args)
-    }
-}
-
-impl fmt::Display for StatusMessage {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match *self {
-            StatusMessage::Ok => f.pad("200 OK"),
-            StatusMessage::Custom(c, ref s) => write!(f, "{} {}", c, s),
-        }
     }
 }

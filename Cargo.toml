@@ -14,7 +14,7 @@ members = [
     "merge_img", "mini-http",
     "minigrep",
     "newsletter",
-    "parse_tab",
+    "parse_tab", "rditoki",
     "remove_uid",
     "rename_ts"
 ]

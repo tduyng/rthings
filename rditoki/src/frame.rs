@@ -6,7 +6,7 @@ use std::num::TryFromIntError;
 use std::string::FromUtf8Error;
 
 #[derive(Debug, Clone)]
-pub enum Frame{
+pub enum Frame {
     Simple(String),
     Error(String),
     Integer(u64),
@@ -18,7 +18,7 @@ pub enum Frame{
 #[derive(Debug)]
 pub enum Error {
     Incomplete,
-    Other(crate::Error)
+    Other(crate::Error),
 }
 
 impl Frame {
@@ -28,10 +28,8 @@ impl Frame {
 
     pub fn push_bulk(&mut self, bytes: Bytes) {
         match self {
-            Frame::Array(vec) => {
-                vec.push(Frame::Bulk(bytes))
-            }
-            _ => panic!("not an array frame")
+            Frame::Array(vec) => vec.push(Frame::Bulk(bytes)),
+            _ => panic!("not an array frame"),
         }
     }
 

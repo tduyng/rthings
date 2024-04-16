@@ -9,12 +9,14 @@ members = [
     "decom",
     "echop",
     "encode",
-    "gentype", "headp",
+    "gentype",
+    "headp",
     "hello",
-    "merge_img", "mini-http",
+    "merge_img",
     "minigrep",
     "newsletter",
-    "parse_tab", "rditoki",
+    "parse_tab",
+    "rditoki",
     "remove_uid",
     "rename_ts"
 ]

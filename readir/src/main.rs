@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 
 use clap::Parser;
-use readir::dir::DirEntry;
+use readir::{dir::DirEntry, Result};
 
 #[derive(Debug, Parser)]
 #[command(name = "readir", version, about = "List all files in a directory")]
@@ -10,7 +10,7 @@ struct CliArgs {
     directory: PathBuf,
 }
 
-fn main() {
+fn main() -> Result<()> {
     let args = CliArgs::parse();
     let dir = args.directory;
 
@@ -20,8 +20,8 @@ fn main() {
     }
 
     println!("Listing files in directory: {}", dir.display());
-    let entries = DirEntry::entries(&dir, &dir);
-    for entry in entries {
-        println!("{}", entry)
-    }
+    let entry = DirEntry::new(dir)?;
+    println!("{}", entry);
+
+    Ok(())
 }

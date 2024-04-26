@@ -10,7 +10,7 @@ impl DirEntry {
         DirEntry { path, is_dir }
     }
 
-    pub fn entries(dir: &PathBuf, root: &PathBuf) -> Vec<String> {
+    pub fn entries_recursive(dir: &PathBuf, root: &PathBuf) -> Vec<String> {
         let mut entries = Vec::new();
 
         if let Ok(entries_iter) = fs::read_dir(dir) {
@@ -23,7 +23,7 @@ impl DirEntry {
                     let formatted_path = relative_path.to_string_lossy().into_owned();
 
                     if is_dir {
-                        entries.extend(Self::entries(&path, root));
+                        entries.extend(Self::entries_recursive(&path, root));
                     } else {
                         entries.push(formatted_path);
                     }

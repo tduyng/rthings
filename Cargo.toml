@@ -3,4 +3,4 @@
 resolver = "1"
 members = [
  "jsrun"
-, "readir"]
+, "readir", "rodo"]

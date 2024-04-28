@@ -88,7 +88,11 @@ fn standardise_size(image_1: DynamicImage, image_2: DynamicImage) -> (DynamicIma
 fn get_smallest_dimensions(dim_1: (u32, u32), dim_2: (u32, u32)) -> (u32, u32) {
     let pix_1 = dim_1.0 * dim_1.1;
     let pix_2 = dim_2.0 * dim_2.1;
-    return if pix_1 < pix_2 { dim_1 } else { dim_2 };
+    if pix_1 < pix_2 {
+        dim_1
+    } else {
+        dim_2
+    }
 }
 
 fn combine_images(image_1: DynamicImage, image_2: DynamicImage) -> Vec<u8> {
@@ -114,7 +118,7 @@ fn alternate_pixels(vec_1: Vec<u8>, vec_2: Vec<u8>) -> Vec<u8> {
     combined_data
 }
 
-fn set_rgba(vec: &Vec<u8>, start: usize, end: usize) -> Vec<u8> {
+fn set_rgba(vec: &[u8], start: usize, end: usize) -> Vec<u8> {
     let mut rgba = Vec::new();
     for i in start..=end {
         let val = match vec.get(i) {

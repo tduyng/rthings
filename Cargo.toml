@@ -1,6 +1,4 @@
 [workspace]
 
-resolver = "1"
-members = [
- "jsrun"
-, "readir", "rodo"]
+resolver = "2"
+members = ["projects/*"]

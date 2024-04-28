@@ -18,7 +18,7 @@ struct Args {
         default_value = "10",
         value_name = "LINES",
         value_parser = clap::value_parser!(u64).range(1..)
-    )] 
+    )]
     lines: u64,
 
     /// Number of bytes
@@ -49,19 +49,13 @@ fn run(args: Args) -> Result<(), Box<dyn Error>> {
             Err(err) => eprintln!("{filename}: {err}"),
             Ok(mut file) => {
                 if num_files > 1 {
-                    println!(
-                        "{}==> {filename} <==",
-                        if file_num > 0 { "\n" } else { "" },
-                    );
+                    println!("{}==> {filename} <==", if file_num > 0 { "\n" } else { "" },);
                 }
 
                 if let Some(num_bytes) = args.bytes {
                     let mut buffer = vec![0; num_bytes as usize];
                     let bytes_read = file.read(&mut buffer)?;
-                    print!(
-                        "{}",
-                        String::from_utf8_lossy(&buffer[..bytes_read])
-                    );
+                    print!("{}", String::from_utf8_lossy(&buffer[..bytes_read]));
                 } else {
                     let mut line = String::new();
                     for _ in 0..args.lines {

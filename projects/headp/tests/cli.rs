@@ -110,11 +110,7 @@ fn run(args: &[&str], expected_file: &str) -> Result<(), Box<dyn Error>> {
 }
 
 // --------------------------------------------------
-fn run_stdin(
-    args: &[&str],
-    input_file: &str,
-    expected_file: &str,
-) -> Result<(), Box<dyn Error>> {
+fn run_stdin(args: &[&str], input_file: &str, expected_file: &str) -> Result<(), Box<dyn Error>> {
     // Extra work here due to lossy UTF
     let mut file = File::open(expected_file)?;
     let mut buffer = Vec::new();

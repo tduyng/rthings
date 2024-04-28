@@ -15,7 +15,9 @@ fn process_directory(dir_path: &str) -> std::io::Result<()> {
         let path = entry.path();
         if path.is_dir() {
             process_directory(path.to_str().unwrap())?;
-            if let Some(new_name) = extract_text_before_id(path.file_name().unwrap().to_str().unwrap()) {
+            if let Some(new_name) =
+                extract_text_before_id(path.file_name().unwrap().to_str().unwrap())
+            {
                 let new_path = path.with_file_name(new_name);
                 fs::rename(path, new_path)?;
             }

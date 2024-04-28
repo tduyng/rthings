@@ -1,6 +1,10 @@
 use crate::Result;
 use core::fmt;
-use std::{collections::VecDeque, fs, path::PathBuf};
+use std::{
+    collections::VecDeque,
+    fs,
+    path::{Path, PathBuf},
+};
 
 pub struct DirEntry {
     pub root: PathBuf,
@@ -46,9 +50,9 @@ impl DirEntry {
     }
 
     #[allow(dead_code)]
-    fn read_entries_bfs(entries: &mut Vec<PathBuf>, dir: &PathBuf) -> Result<()> {
+    fn read_entries_bfs(entries: &mut Vec<PathBuf>, dir: &Path) -> Result<()> {
         let mut queue = VecDeque::new();
-        queue.push_back(dir.clone());
+        queue.push_back(dir.to_path_buf());
 
         while let Some(current_dir) = queue.pop_front() {
             if let Ok(entries_iter) = fs::read_dir(&current_dir) {

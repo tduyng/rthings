@@ -2,3 +2,4 @@
 
 resolver = "2"
 members = ["projects/*"]
+exclude = ["projects/newsletter"]

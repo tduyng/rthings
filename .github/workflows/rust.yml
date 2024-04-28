@@ -35,4 +35,4 @@ jobs:
     - name: Run clippy
       run: cargo clippy --all-targets
     - name: Run tests
-      run: cargo test --verbose
+      run: cargo test -q

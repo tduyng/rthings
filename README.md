@@ -1,6 +1,7 @@
-# Rust Resources Every Learner Should Know
+# Rust resources every learner should know
 
 ## Reading Material 📚
+
 **Quick Summaries**
 
 - 👶 [Tour of Rust](https://tourofrust.com/) is a step-by-step guide for the Rust programming language. It gives a nice overview of the language and allows the learner to also modify the code examples to experiment.
@@ -11,37 +12,37 @@
 
 **🆓 Free Online Books:**
 
-- 👶 [Rust Book "The Book"](https://doc.rust-lang.org/book/): This is the official book on the Rust programming language, written by the Rust development team at the Mozilla Foundation. ITs where I started and one of my absolute favorites. I find myself going back to it often as I write code in Rust.
+- 👶 [Rust Book "The Book"](https://doc.rust-lang.org/book/): This is the official book on the Rust programming language, written by the Rust development team at the Mozilla Foundation.
 
-- 👶 [Rust By Example](https://doc.rust-lang.org/rust-by-example/): Rust by example has a collection of runnable examples for the various concepts in Rust. I found it useful to refer to alongside "the book" whenever I learned a concept there.
+- 👶 [Rust By Example](https://doc.rust-lang.org/rust-by-example/): Rust by example has a collection of runnable examples for the various concepts in Rust.
 
-- 👶 [Easy Rust](https://dhghomon.github.io/easy_rust/): This is a resource that tries to focus on using "easy English" for learning Rust for non-native speakers of English. I personally found it useful to clarify concepts along the way. The nice thing about this book also is that there is a youtube video linked in the book and associated with each chapter.
+- 👶 [Easy Rust](https://dhghomon.github.io/easy_rust/): This is a resource that tries to focus on using "easy English" for learning Rust for non-native speakers of English. The nice thing about this book also is that there is a youtube video linked in the book and associated with each chapter.
 
 - 👴 [Rust Atomics and Locks](https://marabos.nl/atomics/): This book is written by the awesome Mara Bos and is available for free. As the book's name implies, it talks about Rust atomics and locks. As such, the content of this book is largely relevant for writing concurrent application code. Typically not a beginner feat, however, a must-know resource as you advance your knowledge in Rust.
 
-- 👴 [Rust Design Patterns](https://rust-unofficial.github.io/patterns/intro.html): If you want to get into writing more idiomatic Rust this is a good resource. This is not a book to pick up as a beginner for sure but rather when you advance in Rust. If you come from a different language, the book would also help you navigate differences in design patterns. Reading parts of this book actually helped me as I got more into reading other people's codes.
+- 👴 [Rust Design Patterns](https://rust-unofficial.github.io/patterns/intro.html): If you want to get into writing more idiomatic Rust this is a good resource. This is not a book to pick up as a beginner for sure but rather when you advance in Rust. If you come from a different language, the book would also help you navigate differences in design patterns. Reading parts of this book actually helped you as you got more into reading other people's codes.
 
 **💲 Paid In-Print Books:**
 
-- 👨 [Rust in Action](https://amzn.to/3DRu0qh): I purchased a copy of this book last year. Rust in Action is a great read and offers many examples, but not one that I would recommend for a beginner. The author (Tim Mcnamara) himself also recommends the book to those already familiar with some Rust. My personal experience is that the book helped me clarify various concepts in Rust that were still unclear to me. On the flip side, deeper into the book there are some chapters that I skipped. I found those chapters more specific to particular application areas. Finally, on a side note, the author, Tim Mcnamara, also maintains a youtube channel relative to Rust listed in the video section below.
+- 👨 [Rust in Action](https://amzn.to/3DRu0qh): Rust in Action is a great read and offers many examples. The author (Tim Mcnamara) himself also recommends the book to those already familiar with some Rust. The book helped us clarify various concepts in Rust. Finally, on a side note, the author, Tim Mcnamara, also maintains a youtube channel relative to Rust listed in the video section below.
 
-- 👨 [Programming Rust: Fast, Safe Systems Development](https://amzn.to/3Jfxbtb): This book is rated as an Amazon bestseller. I got my hands on one last year as well. The book goes into a lot of detail and different ways to do the same things in Rust. I would say it is a very good type of reference book as I felt it covers every aspect of the language. I wouldn't recommend it for a beginner though, for one reason, it may be a bit overwhelming at times.
+- 👨 [Programming Rust: Fast, Safe Systems Development](https://amzn.to/3Jfxbtb): This book is rated as an Amazon bestseller. The book goes into a lot of detail and different ways to do the same things in Rust.
 
-- 👶 [Beginning Rust: From Novice to Professional](https://amzn.to/3DS1pBi): If you would like to pay for books, and you are a beginner, I would say this is the one to go for. I found this book to be one of the most digestible books teaching Rust. The nice thing about this book is that its material also ties to practice material on Educative.
+- 👶 [Beginning Rust: From Novice to Professional](https://amzn.to/3DS1pBi): This book to be one of the most digestible books teaching Rust. The nice thing about this book is that its material also ties to practice material on Educative.
 
-- 👴 [Rust for Rustaceans](https://nostarch.com/rust-rustaceans): This is a popular book among advanced users and has great reviews, though one that I haven't got my hands on yet. I'm also recommending it because, the author, Jon Gjengset, has a youtube channel I absolutely love (more details in video section below).
+- 👴 [Rust for Rustaceans](https://nostarch.com/rust-rustaceans): This is a popular book among advanced users and has great reviews. Jon Gjengset, has a youtube channel that you might absolutely love (more details in video section below).
 
-##  Practice Material 🏋️‍♂️
+## Practice Material 🏋️‍♂️
 
 **🆓 Free Resources**
 
-- 👶 [Rustlings](https://github.com/rust-lang/rustlings) is a git project with small exercises to learn Rust. I really loved this resource as it covered each topic in "the book" and was challenging at times. I worked through the whole set of exercises and felt quite accomplished every time I got through a tough one. My favorite was figuring out how to write a function to find the factorial of a number in a single line using iterators.
+- 👶 [Rustlings](https://github.com/rust-lang/rustlings) is a git project with small exercises to learn Rust. This resource covered each topic in "the book" and was challenging at times.
 
-- 👶 [Exercism](https://exercism.org/tracks/rust) has a hands-on Rust learning track. I found the exercises interesting in the way they are presented. Though I found the exercises to be a bit more simplistic. This could be because I came about the resource later in my learning.
+- 👶 [Exercism](https://exercism.org/tracks/rust) has a hands-on Rust learning track.
 
-- 👶 [Codewars](https://www.codewars.com/?language=rust) allows you to do coding challenges with peers. It is really cool and helps hone your skills. I found it useful to figure out if I understood certain concepts correctly.
+- 👶 [Codewars](https://www.codewars.com/?language=rust) allows you to do coding challenges with peers. It is really cool and helps hone your skills.
 
-- 👶 [Coding Game](https://www.codingame.com/start) is a game-based learning how to code website that also supports Rust. I didn't get to delve too much into it though Coding Game has a lot of good reviews as it helps make learning fun.
+- 👶 [Coding Game](https://www.codingame.com/start) is a game-based learning how to code website that also supports Rust.
 
 - 👶 [StackUp](https://app.stackup.dev/) is a developer community that allows you to learn and also earn money for participating in our campaigns and quests.
 
@@ -55,13 +56,13 @@
 
 - 👶 [Educative](https://www.educative.io/) has several resources to learn Rust hands-on of which one ties to the [Beginning Rust from Novice to Professional](https://amzn.to/3DS1pBi) book.
 
-##  YouTube Videos 📹
+## YouTube Videos 📹
 
 - 👶 [Rust Tutorial](https://www.youtube.com/playlist?list=PLLqEtX6ql2EyPAZ1M2_C0GgVd4A-_L4_5), by Doug Milford was one of my favorite resources. Doug does a great job of explaining a lot of the sticky concepts in Rust. The videos also go over different code examples and scenarios to explain.
 
-- 👶 [CS Honors @ Illinois](https://www.youtube.com/channel/UCRA18QWPzB7FYVyg0WFKC6g/featured) was another favorite go-to channel to clarify concepts. The series of videos is based on the CS196 (now CS124) freshman course at the University of Illinois at Urbana Champaign which is run by students. The course videos are not entirely about Rust, however, for the ones that do cover Rust concepts, I found them to be extremely helpful.
+- 👶 [CS Honors @ Illinois](https://www.youtube.com/channel/UCRA18QWPzB7FYVyg0WFKC6g/featured) was another favorite go-to channel to clarify concepts. The series of videos is based on the CS196 (now CS124) freshman course at the University of Illinois at Urbana Champaign which is run by students. The course videos are not entirely about Rust, however, for the ones that do cover Rust concepts.
 
-- 👶 [Lets Get Rusty](https://www.youtube.com/c/LetsGetRusty/featured) is a useful channel that provides weekly videos about Rust. It has a nice playlist that goes over "the book" chapters one by one. Though I did find the videos to be fast-paced at times and struggled a bit with some of the explanations.
+- 👶 [Lets Get Rusty](https://www.youtube.com/c/LetsGetRusty/featured) is a useful channel that provides weekly videos about Rust. It has a nice playlist that goes over "the book" chapters one by one.
 
 - 👶 [Rust Crash Course](https://www.youtube.com/watch?v=zF34dRivLOw), by Brad Traversy is a great quick tour that introduces various concepts to the absolute beginner.
 
@@ -69,9 +70,9 @@
 
 - 👨 [timClicks](https://www.youtube.com/channel/UClny6qj9Mv7uFo9XGUGYQBA) is a channel by Tim Mcnamara that covers various topics in Rust and also offers live coding streams. Tim is also the author of the Rust in Action book mentioned earlier.
 
-- 👶 [Free Code Camp](https://www.youtube.com/watch?v=MsocPEZBd-M&t=1820s) provides a beginner tutorial for Rust that works through a CLI application. Although somewhat useful, I didn't spend much time on this one as I struggled with the audio quality and the video was hard to view on Mobile.
+- 👶 [Free Code Camp](https://www.youtube.com/watch?v=MsocPEZBd-M&t=1820s) provides a beginner tutorial for Rust that works through a CLI application. Although somewhat useful.
 
-- 👴 [Jon Gjengset](https://www.youtube.com/channel/UC_iD0xppBwwsrM9DegC5cQQ) provides a series of videos about Rust concepts, however, these videos are not really entry-level as they assume a certain level of knowledge. These videos would probably be better when you become more comfortable with Rust concepts. That being said, after I got more into Rust, this is a channel that I absolutely adore. In the videos, Jon would pick up a certain topic in Rust and tackle it from almost every angle. Watch out though, the videos can get very long! Probably nothing less than an hour per video. The longest [video](https://www.youtube.com/watch?v=zGS-HqcAvA4&t=40s) is at 7 hours and 20 mins long!
+- 👴 [Jon Gjengset](https://www.youtube.com/channel/UC_iD0xppBwwsrM9DegC5cQQ) provides a series of videos about Rust concepts, however, these videos are not really entry-level as they assume a certain level of knowledge. These videos would probably be better when you become more comfortable with Rust concepts. In the videos, Jon would pick up a certain topic in Rust and tackle it from almost every angle. Watch out though, the videos can get very long! Probably nothing less than an hour per video. The longest [video](https://www.youtube.com/watch?v=zGS-HqcAvA4&t=40s) is at 7 hours and 20 mins long!
 
 - 👶 [Code to the Moon](https://www.youtube.com/@codetothemoon/featured) offers nice videos clarifying particular sticky concepts in Rust.
 
@@ -81,7 +82,7 @@
 
 - 👶 [300 seconds of Rust](https://www.youtube.com/@300secondsofrust) provides really nice shorts of different Rust concepts. It is great if you want a quick refresher or insight into a particular concept.
 
-- 👶 [The dev method](https://www.youtube.com/@TheDevMethod/playlists) offers a list of Rust videos explaining particular concepts. I've found explanations to be quite clear and enjoyable to follow.
+- 👶 [The dev method](https://www.youtube.com/@TheDevMethod/playlists) offers a list of Rust videos explaining particular concepts.
 
 ## Git Resources 💾
 
@@ -123,11 +124,9 @@ Asking Questions is obviously a crucial part of learning. What made it better is
 
 - [The Rust Programming Language Subreddit](https://www.reddit.com/r/rust/)
 
-- There is the [Rust Language Forum](https://users.rust-lang.org/) which I personally didn't leverage at all as I found what I need in the previous.
+## Podcasts 📻
 
-##  Podcasts 📻
-
-The following are some useful podcasts that I came across over time that discuss Rust concepts and interesting topics.
+The following are some useful podcasts that discuss Rust concepts and interesting topics.
 
 - [New Rustacean](https://newrustacean.com/)
 
@@ -149,23 +148,30 @@ To stay informed with everything Rust, these are some newsletters that would be 
 
 - [Rust in Blockchain](https://rustinblockchain.org/?ref=inboxreads)
 
-## Other resources
-- [Error handling in Rust](https://nrc.github.io/error-docs/rust-errors/panic.html)
+## Build your own things
+
 - [PNGme: An Intermediate Rust Project](https://jrdngr.github.io/pngme_book/setup.html)
-    - [Code example](https://github.com/Ch1n3du/pngme)
+  - [Code example](https://github.com/Ch1n3du/pngme)
 - [Mini-LSM](https://skyzh.github.io/mini-lsm/00-overview.html)
-    - [Code example](https://github.com/skyzh/mini-lsm)
+  - [Code example](https://github.com/skyzh/mini-lsm)
 - [Blog os](https://os.phil-opp.com/)
-    - [Code example](https://github.com/ch1n3du/blog_os)
-- [Small projects with elegant code base](https://practice.course.rs/elegant-code-base.html)
-- [Rust quiz](https://dtolnay.github.io/rust-quiz/14)
-- [Rust project idea](https://rust-trends.com/newsletter/rust-in-action-10-project-ideas-to-elevate-your-skills/)
-- [Rust algorithms](https://github.com/TheAlgorithms/Rust/blob/master/DIRECTORY.md)
+  - [Code example](https://github.com/ch1n3du/blog_os)
 - [Writing interpreters in Rust](https://rust-hosted-langs.github.io/book/)
-- [Rust cookbook](https://rust-lang-nursery.github.io/rust-cookbook/intro.html)
 - [Writing an OS In Rust](https://os.phil-opp.com/)
 - [Build your own Docker in Rust](https://github.com/tduyng/rdocker)
 - [Build your own dns server in Rust](https://github.com/tduyng/rdns)
 - [Build your own BitTorrent](https://github.com/tduyng/rbitto)
 - [Build your own Redis](https://github.com/tduyng/rdis)
 - [Build your own HTTP](https://github.com/tduyng/rhttp)
+- [Write your own programming language](https://lunacookies.github.io/lang/)
+  - [Eldiro](https://github.com/lunacookies/eldiro?tab=readme-ov-file)
+  - [Gingerbread](https://github.com/gingerbread-lang/gingerbread)
+
+## Other resources
+
+- [Error handling in Rust](https://nrc.github.io/error-docs/rust-errors/panic.html)
+- [Small projects with elegant code base](https://practice.course.rs/elegant-code-base.html)
+- [Rust quiz](https://dtolnay.github.io/rust-quiz/14)
+- [Rust project idea](https://rust-trends.com/newsletter/rust-in-action-10-project-ideas-to-elevate-your-skills/)
+- [Rust algorithms](https://github.com/TheAlgorithms/Rust/blob/master/DIRECTORY.md)
+- [Rust cookbook](https://rust-lang-nursery.github.io/rust-cookbook/intro.html)

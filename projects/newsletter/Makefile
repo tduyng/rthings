@@ -22,4 +22,7 @@ create_db:
 migrate_db:
 	sqlx migrate add create_subscriptions_table
 
-.PHONY: init_db create_db
+migrate_run:
+	sqlx migrate run
+
+.PHONY: init_db create_db migrate_run

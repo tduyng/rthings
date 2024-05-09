@@ -4,6 +4,7 @@ use std::net::TcpListener;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
+    // Init tracing.
     let config = get_configuration().expect("Failed to read configuration file");
     let connection_pool = PgPool::connect(&config.database.connection_string())
         .await

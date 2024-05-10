@@ -1,0 +1,27 @@
+{
+  "name": "yadt",
+  "displayName": "yadt",
+  "description": "Yet another dark themes",
+  "publisher": "tduyng",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/tduyng/yadt"
+  },
+  "version": "0.1.1",
+  "engines": {
+    "vscode": "^1.41.0"
+  },
+  "categories": ["Themes"],
+  "scripts": {
+    "package": "vsce package"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "yadt",
+        "uiTheme": "vs-dark",
+        "path": "./themes/ref.json"
+      }
+    ]
+  }
+}

@@ -27,32 +27,27 @@
 - [LeetCode](https://leetcode.com/): Platform for interview prep with code problems.
 
 ### YouTube videos
+- [Rust Videos](https://www.youtube.com/@RustVideos/videos): Videos of Rust talks curated by the Rust team.
 
-- [Rust Tutorial](https://www.youtube.com/playlist?list=PLLqEtX6ql2EyPAZ1M2_C0GgVd4A-_L4_5) by Doug Milford: This resource is one of the favorites, as Doug does an excellent job explaining various concepts in Rust. The videos cover different code examples and scenarios to aid understanding.
+- [Rust Nation UK](https://www.youtube.com/@rustnationuk/videos): Rust talks from this conf.
 
-- [CS Honors @ Illinois](https://www.youtube.com/channel/UCRA18QWPzB7FYVyg0WFKC6g/featured): This channel provides valuable content based on the CS196 (now CS124) freshman course at the University of Illinois at Urbana Champaign. Although not entirely about Rust, it clarifies Rust concepts when covered.
+- [Jon Gjengset](https://www.youtube.com/@jonhoo): Rust with a focus on deep dives for intermediate and advanced internal workings of Rust, libraries.
 
-- [Lets Get Rusty](https://www.youtube.com/c/LetsGetRusty/featured): This channel offers weekly videos about Rust, with a playlist that systematically covers chapters from "the book".
+- [Chris Biscardi](https://www.youtube.com/@chrisbiscardi): Rust with a focus on WASM, Bevy.
 
-- [Rust Crash Course](https://www.youtube.com/watch?v=zF34dRivLOw) by Brad Traversy: This is a quick tour introducing various Rust concepts to absolute beginners.
+- [Code to the Moon](https://www.youtube.com/@codetothemoon/videos): Rust with a focus on full stack web dev.
 
-- [Ryan Levick](https://www.youtube.com/channel/UCpeX4D-ArTrsqvhLapAHprQ): Ryan Levick, a former Microsoft engineer working on Rust, shares useful explanations for certain concepts in Rust. He also demonstrates a cool project where he builds an SDK for Microsoft Flight Simulator 2020 using Rust.
+- [Jeremy Chone](https://www.youtube.com/@JeremyChone/videos): Rust with a focus on web dev.
 
-- [timClicks](https://www.youtube.com/channel/UClny6qj9Mv7uFo9XGUGYQBA): Tim Mcnamara's channel covers various Rust topics and offers live coding streams. Tim is also the author of the Rust in Action book.
+- [Let's Get Rusty](https://www.youtube.com/@letsgetrusty/videos): Rust with a focus on beginner friendly introductions to Rust, with a hint of shitposting all over the place.
 
-- [Free Code Camp](https://www.youtube.com/watch?v=MsocPEZBd-M&t=1820s): Provides a beginner tutorial for Rust working through a CLI application.
+- [Logan Smith](https://www.youtube.com/@_noisecode/videos): Rust with a focus on exploring certain APIs.
 
-- [Jon Gjengset](https://www.youtube.com/channel/UC_iD0xppBwwsrM9DegC5cQQ): Jon provides a series of in-depth videos about Rust concepts. While not entry-level, they are beneficial once you become more comfortable with Rust concepts.
+- [Michael Mullin](https://www.youtube.com/@masmullin/videos): Some Rust with a focus on exploring certain APIs, a bit of security.
 
-- [Code to the Moon](https://www.youtube.com/@codetothemoon/featured): Offers videos clarifying particular sticky concepts in Rust.
+- [No Boilerplate](https://www.youtube.com/@NoBoilerplate/videos): Rust, a bit of everything.
 
-- [Noboilerplate](https://www.youtube.com/@NoBoilerplate/featured): Provides fast technical videos about Rust.
-
-- [Dcode](https://www.youtube.com/watch?v=vOMJlQ5B-M0&list=PLVvjrrRCBy2JSHf9tGxGKJ-bYAN_uDCUL): Offers a playlist of high-quality Rust Programming tutorials.
-
-- [300 seconds of Rust](https://www.youtube.com/@300secondsofrust): Provides short, insightful videos on different Rust concepts, great for quick refreshers.
-
-- [The dev method](https://www.youtube.com/@TheDevMethod/playlists): Offers Rust videos explaining particular concepts.
+- [Sreekanth](https://www.youtube.com/watch?v=7_o-YRxf_cc): Visualizing Rust memory layout.
 
 ### Git resources
 

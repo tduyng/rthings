@@ -2,6 +2,7 @@ use clap::Parser;
 use std::error::Error;
 use std::io;
 use std::process::Stdio;
+use std::time::Instant;
 use tokio::io::{AsyncBufReadExt, BufReader};
 use tokio::process::Command;
 
@@ -40,8 +41,15 @@ struct Cli {
 async fn main() -> Result<(), Box<dyn Error>> {
     let args = Cli::parse();
 
+    let start_time = Instant::now();
     match download_video(&args).await {
-        Ok(_) => println!("Download and conversion completed successfully."),
+        Ok(_) => {
+            let duration = start_time.elapsed();
+            println!(
+                "Download and conversion completed successfully in {:.2?}.",
+                duration
+            );
+        }
         Err(e) => eprintln!("Error: {}", e),
     }
 

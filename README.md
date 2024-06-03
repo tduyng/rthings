@@ -107,6 +107,7 @@
 
 ## Projects in this repository
 
+- [cat](./projects/cat): Cat commands
 - [comzip](./projects/comzip): Zip files
 - [csv_json](./projects/csv_json): Convert CSV to JSON
 - [decom](./projects/decom): Compress/decompress files
@@ -118,8 +119,7 @@
 - [miniredis](./projects/miniredis): Implement mini Redis with Tokio
 - [newsletter](./projects/newsletter): Build email newsletter server with Actix and PostgreSQL (WIP)
 - [parse_tab](./projects/parse_tab): Parse tab file to JSON
-- [readir](./projects/readir): Read-dir command
-- [remove_uid](./projects/remove_uid): Remove UUID prefix from file names for converting Notion to Obsidian
+- [readir](./projects/readir): Read dir command
 - [rename_ts](./projects/rename_ts): Move "x.test.ts" file to "x" folder and rename it to "index.test.ts"
 - [todo](./projects/todo): Create todo list from Axum + SQLite (WIP)
 - [rdocker](https://github.com/tduyng/rdocker): Build your own Docker in Rust
@@ -127,3 +127,5 @@
 - [rbitto](https://github.com/tduyng/rbitto): Build your own BitTorrent
 - [rdis](https://github.com/tduyng/rdis): Build your own Redis
 - [rhttp](https://github.com/tduyng/rhttp): Build your own HTTP
+- [shell](https://github.com/tduyng/shell-rs): Build your own shell
+- [tubed](./projects/tubed): CLI to download youtube videos

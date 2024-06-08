@@ -3,11 +3,11 @@ use glob::glob;
 use regex::Regex;
 use std::env;
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
 fn main() {
     if let Err(err) = run() {
-        eprintln!("Error: {}", err);
+        eprintln!("\x1b[91mError: {}\x1b[0m", err);
         std::process::exit(1);
     }
 }
@@ -15,42 +15,55 @@ fn main() {
 fn run() -> Result<()> {
     let args: Vec<String> = env::args().collect();
     if args.len() != 2 {
-        eprintln!("Usage: aje <INPUT pattern>");
+        eprintln!("\x1b[93mUsage: aje <INPUT pattern>\x1b[0m");
         std::process::exit(1);
     }
     let pattern = &args[1];
-    let files = find_files(pattern)?;
+    let (count_processed, _count_total) = process_files(pattern)?;
 
-    for file in files {
-        process_file(&file)?;
+    if count_processed == 0 {
+        println!("\x1b[93mNo files were modified.\x1b[0m");
+    } else if count_processed == 1 {
+        println!("\x1b[92mProcessed 1 file successfully\x1b[0m",);
+    } else {
+        println!(
+            "\x1b[92mProcessed {} files successfully\x1b[0m",
+            count_processed
+        );
     }
 
     Ok(())
 }
 
-fn find_files(pattern: &str) -> Result<Vec<PathBuf>> {
-    let mut files = Vec::new();
+fn process_files(pattern: &str) -> Result<(usize, usize)> {
+    let mut count_processed = 0;
+    let mut count_total = 0;
 
     for entry in glob(pattern)? {
         let path = entry?;
         if path.is_file() {
-            files.push(path);
+            count_total += 1;
+            if process_file(&path, &mut count_processed)? {
+                // Count is incremented within process_file if the file is modified
+            }
         }
     }
 
-    Ok(files)
+    Ok((count_processed, count_total))
 }
 
-fn process_file(file_path: &Path) -> Result<()> {
+fn process_file(file_path: &Path, count: &mut usize) -> Result<bool> {
     let content = fs::read_to_string(file_path)?;
     let modified_content = modify_paths(&content, file_path.parent().unwrap())?;
 
     if content != modified_content {
         fs::write(file_path, modified_content)?;
-        println!("Processed: {}", file_path.display());
+        println!("\x1b[96mProcessed: {}\x1b[0m", file_path.display());
+        *count += 1;
+        Ok(true)
+    } else {
+        Ok(false)
     }
-
-    Ok(())
 }
 
 fn modify_paths(content: &str, directory: &Path) -> Result<String> {

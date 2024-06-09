@@ -49,7 +49,7 @@ fn main() {
 }
 
 fn run(pattern: &str) -> Result<()> {
-    let (count_processed, _count_total) = process_files(pattern)?;
+    let count_processed = process_files(pattern)?;
 
     if count_processed == 0 {
         println!("\x1b[93mNo files were modified.\x1b[0m");
@@ -65,24 +65,20 @@ fn run(pattern: &str) -> Result<()> {
     Ok(())
 }
 
-fn process_files(pattern: &str) -> Result<(usize, usize)> {
+fn process_files(pattern: &str) -> Result<usize> {
     let mut count_processed = 0;
-    let mut count_total = 0;
 
     for entry in glob(pattern)? {
         let path = entry?;
         if path.is_file() {
-            count_total += 1;
-            if process_file(&path, &mut count_processed)? {
-                // Count is incremented within process_file if the file is modified
-            }
+            process_file(&path, &mut count_processed)?;
         }
     }
 
-    Ok((count_processed, count_total))
+    Ok(count_processed)
 }
 
-fn process_file(file_path: &Path, count: &mut usize) -> Result<bool> {
+fn process_file(file_path: &Path, count: &mut usize) -> Result<()> {
     let content = fs::read_to_string(file_path)?;
     let modified_content = modify_paths(&content, file_path.parent().unwrap())?;
 
@@ -90,10 +86,9 @@ fn process_file(file_path: &Path, count: &mut usize) -> Result<bool> {
         fs::write(file_path, modified_content)?;
         println!("\x1b[96mProcessed: {}\x1b[0m", file_path.display());
         *count += 1;
-        Ok(true)
-    } else {
-        Ok(false)
     }
+
+    Ok(())
 }
 
 fn modify_paths(content: &str, directory: &Path) -> Result<String> {

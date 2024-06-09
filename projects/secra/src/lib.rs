@@ -17,7 +17,7 @@ pub struct Cli {
     pub listen_addr: SocketAddr,
 }
 
-/// Holds the web server's state
+#[derive(Clone)]
 pub struct ServerState {
     pub db_pool: sqlx::PgPool,
 }

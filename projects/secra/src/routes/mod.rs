@@ -1,11 +1,12 @@
-use axum::{response::Html, routing::get, Router};
-
 use crate::ServerState;
+use axum::{routing::get, Router};
+use health::{db_ready, health_check};
 
-pub fn build_router(_state: ServerState) -> Router {
-    Router::new().route("/", get(hello_world))
-}
+pub mod health;
 
-async fn hello_world() -> Html<&'static str> {
-    Html("<h1>Hello, World!</h1>")
+pub fn build_router(state: ServerState) -> Router {
+    Router::new()
+        .route("/health", get(health_check))
+        .route("/ready", get(db_ready))
+        .with_state(state)
 }

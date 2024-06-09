@@ -3,6 +3,7 @@ use sqlx::postgres::PgConnectOptions;
 use std::net::SocketAddr;
 
 pub mod errors;
+pub mod models;
 pub mod routes;
 
 #[derive(Debug, Parser)]

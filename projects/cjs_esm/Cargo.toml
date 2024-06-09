@@ -2,6 +2,11 @@
 name = "cesm"
 version = "0.1.0"
 edition = "2021"
+authors = ["Z <hi@tduyng.com>"]
+description = "A CLI program for adding .js to import/export path in Typescript project"
+homepage = "https://github.com/tduyng/rthings/projects/cjs_esm"
+repository = "https://github.com/tduyng/rthings/projects/cjs_esm"
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

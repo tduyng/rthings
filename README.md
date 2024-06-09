@@ -129,3 +129,4 @@
 - [rhttp](https://github.com/tduyng/rhttp): Build your own HTTP
 - [shell](https://github.com/tduyng/shell-rs): Build your own shell
 - [tubed](./projects/tubed): CLI to download youtube videos
+- [cjs_esm](./projects/cjs_esm): CLI to add `.js` extension in the import/export path of Typescript Commonjs projects

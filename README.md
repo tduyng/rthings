@@ -107,6 +107,9 @@
 
 ## Projects in this repository
 
+<details>
+<summary>Expand here</summary>
+
 - [cat](./projects/cat): Cat commands
 - [comzip](./projects/comzip): Zip files
 - [csv_json](./projects/csv_json): Convert CSV to JSON
@@ -130,3 +133,5 @@
 - [shell](https://github.com/tduyng/shell-rs): Build your own shell
 - [tubed](./projects/tubed): CLI to download youtube videos
 - [cjs_esm](./projects/cjs_esm): CLI to add `.js` extension in the import/export path of Typescript Commonjs projects
+
+</details>

@@ -61,7 +61,7 @@ cesm addjs "src/main.ts"
 ### Dependencies
 
 - **[clap](https://github.com/clap-rs/clap)**: For command-line argument parsing.
-- **[anyhow](https://github.com/dtolnay/anyhow)**: For error handling.
+- **[thiserror](https://github.com/dtolnay/thiserror)**: For error handling.
 - **[glob](https://github.com/rust-lang-nursery/glob)**: For file pattern matching.
 - **[regex](https://github.com/rust-lang/regex)**: For regular expression processing.
 

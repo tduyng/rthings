@@ -11,6 +11,10 @@ use langchain_rust::template_fstring;
 use langchain_rust::{fmt_message, fmt_template};
 use langchain_rust::{message_formatter, prompt_args};
 use std::io::{self, Write};
+use std::time::Duration;
+use tokio::sync::mpsc;
+use tokio::task;
+use tokio::time::sleep;
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
@@ -33,12 +37,19 @@ async fn main() -> Result<()> {
     Ok(())
 }
 
-async fn handle_prompt(state: &State, question: &str) -> Result<()> {
+async fn handle_prompt(
+    state: &State,
+    question: &str,
+    loading_sender: mpsc::Sender<()>,
+) -> Result<()> {
     let input_variables = prompt_args! {
         "input" => question,
     };
 
     let stream_result = state.chain.stream(input_variables).await;
+    // Stop the loading indicator
+    let _ = loading_sender.send(()).await;
+
     match stream_result {
         Ok(mut stream) => {
             let mut response = String::new();
@@ -52,7 +63,7 @@ async fn handle_prompt(state: &State, question: &str) -> Result<()> {
                     }
                 }
             }
-            println!("{}", response);
+            println!("\n{}", response);
         }
         Err(e) => {
             eprintln!("Stream error: {:?}", e);
@@ -74,7 +85,27 @@ async fn interactive_mode(state: &State) -> Result<()> {
         stdout.flush()?;
 
         stdin.read_line(&mut input)?;
-        handle_prompt(state, input.trim()).await?;
+
+        // Create a channel to communicate with the loading task
+        let (loading_sender, mut loading_receiver) = mpsc::channel(1);
+
+        // Spawn the loading indicator task
+        let loading_handle = task::spawn(async move {
+            let mut loading = true;
+            while loading {
+                print!("loading...\n");
+                io::stdout().flush().unwrap();
+                sleep(Duration::from_millis(500)).await;
+
+                // Check if we received a message to stop the loading indicator
+                if let Ok(_) = loading_receiver.try_recv() {
+                    loading = false;
+                }
+            }
+        });
+
+        handle_prompt(state, input.trim(), loading_sender).await?;
+        loading_handle.await?;
 
         input.clear();
     }

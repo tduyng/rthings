@@ -116,15 +116,12 @@
 - [decom](./projects/decom): Compress/decompress files
 - [echo](./projects/echo): "Echo" command
 - [head](./projects/head): "Head" command
-- [jsrun](./projects/jsrun): Build JavaScript runtime (WIP)
 - [merge_img](./projects/merge_img): Merge images
 - [minigrep](./projects/minigrep): Create mini-grep
-- [miniredis](./projects/miniredis): Implement mini Redis with Tokio
 - [newsletter](./projects/newsletter): Build email newsletter server with Actix and PostgreSQL (WIP)
 - [parse_tab](./projects/parse_tab): Parse tab file to JSON
 - [readir](./projects/readir): Read dir command
 - [rename_ts](./projects/rename_ts): Move "x.test.ts" file to "x" folder and rename it to "index.test.ts"
-- [todo](./projects/todo): Create todo list from Axum + SQLite (WIP)
 - [rdocker](https://github.com/tduyng/rdocker): Build your own Docker in Rust
 - [rdns](https://github.com/tduyng/rdns): Build your own dns server in Rust
 - [rbitto](https://github.com/tduyng/rbitto): Build your own BitTorrent
@@ -133,5 +130,6 @@
 - [shell](https://github.com/tduyng/shell-rs): Build your own shell
 - [tubed](./projects/tubed): CLI to download youtube videos
 - [cjs_esm](./projects/cjs_esm): CLI to add `.js` extension in the import/export path of Typescript Commonjs projects
+- [langchain_ollama](./projects/langchain_ollama): A CLI application to run AI with Ollama (llama3 model) using langchain-rust
 
 </details>

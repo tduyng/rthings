@@ -1,6 +1,7 @@
 use std::fs::read_to_string;
 
 pub mod error;
+pub mod json_value;
 pub mod lexer;
 pub mod parser;
 
@@ -13,7 +14,7 @@ fn main() {
     let mut parser = parser::Parser::new(lexer);
 
     match parser.parse() {
-        Ok(ast) => println!("{:?}", ast),
+        Ok(json_value) => println!("{}", json_value),
         Err(e) => eprintln!("Error: {:?}", e),
     }
 }

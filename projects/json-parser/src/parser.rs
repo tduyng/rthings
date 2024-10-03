@@ -1,17 +1,8 @@
 use crate::{
     error::LexError,
+    json_value::JsonValue,
     lexer::{Lexer, Token},
 };
-
-#[derive(Debug, PartialEq)]
-pub enum JsonValue {
-    Object(Vec<(String, Box<JsonValue>)>),
-    Array(Vec<Box<JsonValue>>),
-    String(String),
-    Number(f64),
-    Boolean(bool),
-    Null,
-}
 
 pub struct Parser<'a> {
     lexer: Lexer<'a>,

@@ -10,4 +10,7 @@ pub enum LexError {
 
     #[error("Unterminated string starting at position {0}")]
     UnterminatedString(usize),
+
+    #[error("Invalid JSON structure: {0}")]
+    InvalidJson(String),
 }

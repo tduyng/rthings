@@ -1,4 +1,4 @@
-use std::str::Chars;
+use std::{fmt::Display, str::Chars};
 
 use crate::error::LexError;
 
@@ -15,6 +15,25 @@ pub enum Token {
     Boolean(bool),
     Null,
     EOF,
+}
+
+impl Display for Token {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let token_str = match self {
+            Token::LBrace => "LBrace",
+            Token::RBrace => "RBrace",
+            Token::LBracket => "LBracket",
+            Token::RBracket => "RBracket",
+            Token::Colon => "Colon",
+            Token::Comma => "Comma",
+            Token::String(_) => "String",
+            Token::Number(_) => "Number",
+            Token::Boolean(_) => "Boolean",
+            Token::Null => "Null",
+            Token::EOF => "EOF",
+        };
+        write!(f, "{}", token_str)
+    }
 }
 
 pub struct Lexer<'a> {

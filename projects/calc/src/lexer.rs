@@ -1,69 +1,57 @@
-use std::{
-    fs::File,
-    io::{BufReader, Lines},
-    vec,
-};
+use std::str::CharIndices;
 
 use crate::token::{Token, TokenKind};
 
 #[derive(Debug)]
 pub struct Lexer {
+    input: String,
     pos: usize,
-    line: Option<String>,
-    lines: Lines<BufReader<File>>,
+    chars: CharIndices<'static>,
 }
 
 impl Lexer {
-    pub fn new(lines: Lines<BufReader<File>>) -> Self {
-        let mut lexer = Lexer {
+    pub fn new(input: String) -> Self {
+        let chars = unsafe { std::mem::transmute(input.as_str().char_indices()) };
+        Self {
+            input,
             pos: 0,
-            line: None,
-            lines,
-        };
-        lexer.advance_line();
-        lexer
+            chars,
+        }
     }
 
     pub fn lex(&mut self) -> Vec<Token> {
-        let mut tokens = vec![];
-        while self.line.is_some() {
-            if let Some(c) = self.char() {
-                match c {
-                    ' ' | '\t' => self.advance(),
-                    '#' => self.skip_comment(),
-                    '0'..='9' => tokens.push(self.lex_number()),
-                    '+' => tokens.push(self.single_char_token(TokenKind::Plus)),
-                    '-' => tokens.push(self.single_char_token(TokenKind::Minus)),
-                    '*' => tokens.push(self.single_char_token(TokenKind::Star)),
-                    '/' => tokens.push(self.single_char_token(TokenKind::Slash)),
-                    '^' => tokens.push(self.single_char_token(TokenKind::Caret)),
-                    '(' => tokens.push(self.single_char_token(TokenKind::LParen)),
-                    ')' => tokens.push(self.single_char_token(TokenKind::RParen)),
-                    _ => self.advance(),
-                }
-            } else {
-                self.advance_line();
+        let mut tokens = Vec::new();
+        while let Some(c) = self.peek() {
+            match c {
+                ' ' | '\t' | '\n' => self.advance(),
+                '#' => self.skip_comment(),
+                '0'..='9' => tokens.push(self.lex_number()),
+                '+' => tokens.push(self.lex_single_char(TokenKind::Plus)),
+                '-' => tokens.push(self.lex_single_char(TokenKind::Minus)),
+                '*' => tokens.push(self.lex_single_char(TokenKind::Star)),
+                '/' => tokens.push(self.lex_single_char(TokenKind::Slash)),
+                '^' => tokens.push(self.lex_single_char(TokenKind::Caret)),
+                '(' => tokens.push(self.lex_single_char(TokenKind::LParen)),
+                ')' => tokens.push(self.lex_single_char(TokenKind::RParen)),
+                _ => self.advance(),
             }
         }
-        dbg!(&tokens);
         tokens
     }
-
-    fn advance_line(&mut self) {
-        self.pos = 0;
-        self.line = self.lines.next().and_then(|res| res.ok());
-    }
-
     fn advance(&mut self) {
+        self.chars.next();
         self.pos += 1;
     }
 
-    fn char(&self) -> Option<char> {
-        self.line.as_ref()?.chars().nth(self.pos)
+    fn peek(&self) -> Option<char> {
+        self.chars.clone().next().map(|(_, c)| c)
     }
 
     fn skip_comment(&mut self) {
-        while self.char().is_some() {
+        while let Some(c) = self.peek() {
+            if c == '\n' {
+                break;
+            }
             self.advance();
         }
     }
@@ -73,9 +61,11 @@ impl Lexer {
         let mut has_dot = false;
         let mut has_exponent = false;
 
-        while let Some(c) = self.char() {
+        while let Some(c) = self.peek() {
             match c {
-                '0'..='9' | '_' => self.advance(),
+                '0'..='9' | '_' => {
+                    self.advance();
+                }
                 '.' if !has_dot => {
                     has_dot = true;
                     self.advance();
@@ -83,7 +73,7 @@ impl Lexer {
                 'e' | 'E' if !has_exponent => {
                     has_exponent = true;
                     self.advance();
-                    if let Some(next_char) = self.char() {
+                    if let Some(next_char) = self.peek() {
                         if next_char == '+' || next_char == '-' {
                             self.advance();
                         }
@@ -94,20 +84,25 @@ impl Lexer {
         }
 
         let end = self.pos;
-        let number_str: String = self.line.as_ref().unwrap()[start..end]
+        let number_str: String = self.input[start..end]
             .chars()
             .filter(|&c| c != '_')
             .collect();
-        let number = number_str.parse().unwrap();
+        let number = number_str.parse().unwrap_or(0.0); // Handle parsing errors appropriately in real code
         Token {
-            pos: start,
+            start,
+            end,
             kind: TokenKind::Number(number),
         }
     }
 
-    fn single_char_token(&mut self, kind: TokenKind) -> Token {
-        let token = Token::new(self.pos, kind);
+    fn lex_single_char(&mut self, kind: TokenKind) -> Token {
+        let start = self.pos;
         self.advance();
-        token
+        Token {
+            start,
+            end: self.pos,
+            kind,
+        }
     }
 }

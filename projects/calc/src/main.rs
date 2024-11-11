@@ -1,7 +1,7 @@
 use std::{
     env,
     fs::File,
-    io::{BufRead, BufReader},
+    io::{BufReader, Read},
 };
 
 use lexer::Lexer;
@@ -17,19 +17,13 @@ fn main() {
     }
 
     let input = &args[1];
-    let file_path = env::current_dir()
-        .expect("Could not get current directory")
-        .join(input);
-
-    let file = match File::open(&file_path) {
-        Ok(file) => file,
-        Err(err) => {
-            eprintln!("Error opening file {}: {}", file_path.display(), err);
-            std::process::exit(1);
-        }
-    };
-
-    let reader = BufReader::new(file);
-    let mut lexer = Lexer::new(reader.lines());
-    lexer.lex();
+    let file = File::open(input).expect("Could not open file");
+    let mut contents = String::new();
+    let mut reader = BufReader::new(file);
+    reader
+        .read_to_string(&mut contents)
+        .expect("Could not read file");
+    let mut lexer = Lexer::new(contents);
+    let tokens = lexer.lex();
+    dbg!(&tokens);
 }

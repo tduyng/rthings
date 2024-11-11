@@ -3,15 +3,15 @@ use std::str::CharIndices;
 use crate::token::{Token, TokenKind};
 
 #[derive(Debug)]
-pub struct Lexer {
-    input: String,
+pub struct Lexer<'a> {
+    input: &'a str,
     pos: usize,
-    chars: CharIndices<'static>,
+    chars: CharIndices<'a>,
 }
 
-impl Lexer {
-    pub fn new(input: String) -> Self {
-        let chars = unsafe { std::mem::transmute(input.as_str().char_indices()) };
+impl<'a> Lexer<'a> {
+    pub fn new(input: &'a str) -> Self {
+        let chars = input.char_indices();
         Self {
             input,
             pos: 0,

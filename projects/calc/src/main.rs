@@ -6,6 +6,7 @@ use std::{
 
 use lexer::Lexer;
 
+mod allocator;
 mod lexer;
 mod token;
 
@@ -23,7 +24,7 @@ fn main() {
     reader
         .read_to_string(&mut contents)
         .expect("Could not read file");
-    let mut lexer = Lexer::new(contents);
+    let mut lexer = Lexer::new(&contents);
     let tokens = lexer.lex();
     dbg!(&tokens);
 }

@@ -1,3 +1,4 @@
+#[derive(Debug)]
 pub struct Token {
-    pos: usize,
+    pub pos: usize,
 }

@@ -15,41 +15,47 @@ pub struct Lexer {
 
 impl Lexer {
     pub fn new(lines: Lines<BufReader<File>>) -> Self {
-        let mut l = Lexer {
+        let mut lexer = Lexer {
             pos: 0,
             line: None,
             lines,
         };
-        l.advance();
-        l
+        lexer.advance_line();
+        lexer
     }
 
     pub fn lex(&mut self) -> Vec<Token> {
-        let t = vec![];
-        loop {
-            let cc: char;
+        let tokens = vec![];
+        while self.line.is_some() {
             if let Some(c) = self.char() {
-                cc = c;
+                match c {
+                    ' ' | '\t' => self.advance(),
+                    '#' => self.skip_comment(),
+                    _ => self.advance(),
+                }
             } else {
-                break;
+                self.advance_line();
             }
-            dbg!(cc);
-            self.advance();
         }
-        t
+        tokens
+    }
+
+    fn advance_line(&mut self) {
+        self.pos = 0;
+        self.line = self.lines.next().and_then(|res| res.ok());
     }
 
     fn advance(&mut self) {
         self.pos += 1;
-        if self.pos >= self.line.as_ref().unwrap_or(&String::new()).len() || self.line.is_none() {
-            self.line = match self.lines.next() {
-                Some(Ok(line)) => Some(line),
-                _ => None,
-            };
-        }
     }
 
     fn char(&self) -> Option<char> {
         self.line.as_ref()?.chars().nth(self.pos)
+    }
+
+    fn skip_comment(&mut self) {
+        while self.char().is_some() {
+            self.advance();
+        }
     }
 }

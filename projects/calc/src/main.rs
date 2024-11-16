@@ -7,8 +7,12 @@ use std::{
 use lexer::Lexer;
 
 mod allocator;
+mod expr;
 mod lexer;
+mod parser;
 mod token;
+mod values;
+mod vm;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
